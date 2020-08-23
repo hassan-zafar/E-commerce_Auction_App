@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "291679673021",
+    "firebase_url": "https://kannapy-bcf52.firebaseio.com",
+    "project_id": "kannapy-bcf52",
+    "storage_bucket": "kannapy-bcf52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291679673021:android:a60b5f08e1d8b83802f5d4",
+        "android_client_info": {
+          "package_name": "hassan.kannapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291679673021-a549upkt6jfu547rte0vdsv4onvb4v4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hassan.kannapy",
+            "certificate_hash": "2415d99af0b64478faa0e02e00a5c1a722982264"
+          }
+        },
+        {
+          "client_id": "291679673021-pgsea3pb5krlaivm0ker80qfqo1uakcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuCs_feo6wu3r2c0ncn23oLPE-dE6FgQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291679673021-pgsea3pb5krlaivm0ker80qfqo1uakcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
