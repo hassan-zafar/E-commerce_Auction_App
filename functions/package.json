@@ -13,9 +13,9 @@
   },
   "main": "index.js",
   "dependencies": {
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.6.1",
-    "stripe": "^8.88.0"
+    "stripe": "^8.129.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

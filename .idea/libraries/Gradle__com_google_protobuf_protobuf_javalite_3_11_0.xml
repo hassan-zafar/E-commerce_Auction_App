@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.protobuf:protobuf-javalite:3.11.0" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-javalite/3.11.0/7d41add57e38934167964a9e1b11b55652a995b9/protobuf-javalite-3.11.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

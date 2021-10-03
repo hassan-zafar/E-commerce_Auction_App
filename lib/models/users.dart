@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class AppUser {
   final String id;
   final String userName;
   final String email;
@@ -9,8 +9,9 @@ class User {
   final String bio;
   final String type;
   final List address;
-
-  User({
+  final bool hasMadePurchase;
+  final String androidNotificationToken;
+  AppUser({
     this.id,
     this.userName,
     this.email,
@@ -19,18 +20,22 @@ class User {
     this.bio,
     this.type,
     this.address,
+    this.hasMadePurchase,
+    this.androidNotificationToken,
   });
 
-  factory User.fromDocument(DocumentSnapshot doc) {
-    return User(
-      id: doc['id'],
-      email: doc['email'],
-      userName: doc['userName'],
-      photoUrl: doc['photoUrl'],
-      displayName: doc['displayName'],
-      bio: doc['bio'],
-      type: doc['type'],
-      address: doc['address'],
+  factory AppUser.fromDocument(DocumentSnapshot doc) {
+    return AppUser(
+      id: doc.data()['id'],
+      email: doc.data()['email'],
+      userName: doc.data()['userName'],
+      photoUrl: doc.data()['photoUrl'],
+      displayName: doc.data()['displayName'],
+      bio: doc.data()['bio'],
+      type: doc.data()['type'],
+      address: doc.data()['address'],
+      hasMadePurchase: doc.data()['hasMadePurchase'],
+      androidNotificationToken: doc.data()["androidNotificationToken"],
     );
   }
 }

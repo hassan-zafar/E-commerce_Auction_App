@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.guava:guava:27.0.1-android" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/27.0.1-android/b7e1c37f66ef193796ccd7ea6e80c2b05426182d/guava-27.0.1-android.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

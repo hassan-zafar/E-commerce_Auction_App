@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.jakewharton.threetenabp:threetenabp:1.2.3@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/575bcd9d592366fdb86c7a1033d573b5/threetenabp-1.2.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/575bcd9d592366fdb86c7a1033d573b5/threetenabp-1.2.3/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

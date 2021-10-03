@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: io.grpc:grpc-okhttp:1.28.0" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-okhttp/1.28.0/2dc3f7171029561afcc8342682bca032c79f7ebd/grpc-okhttp-1.28.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,45 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>kannapy</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-</dict>
-</plist>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4d88bb4e-bdcf-4499-a306-402dcbd83b6c" name="Default Changelist" comment="E-Commerce_Auction_APP">
+      <change afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/hassan/kannapy/Application.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/kannapy_logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/kannapy_logo_splash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/adminScreens/requests.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/addressModel.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/tools/HistoryDetails.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/tools/VaultItemTile.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/tools/seedVaultItems.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/tools/storeItems.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/userScreens/codeScreen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/userScreens/requestMerc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" be

@@ -6,7 +6,7 @@ bouncingGridProgress() {
     alignment: Alignment.center,
     padding: EdgeInsets.only(top: 10),
     child: LoadingBouncingGrid.circle(
-      borderColor: Colors.black12,
+      backgroundColor: Colors.black38,
       size: 30.0,
     ),
   );

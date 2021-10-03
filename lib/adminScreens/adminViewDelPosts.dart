@@ -4,6 +4,7 @@ import 'package:kannapy/tools/posts.dart';
 import 'package:kannapy/tools/postsTile.dart';
 import 'package:kannapy/tools/progress.dart';
 import 'package:kannapy/userScreens/home.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AdminViewDelPosts extends StatefulWidget {
   final String profileId;
@@ -18,6 +19,8 @@ class _AdminViewDelPostsState extends State<AdminViewDelPosts> {
   bool isLoading = false;
   int postCount = 0;
   List<Post> posts = [];
+  RefreshController _refreshController = RefreshController();
+
   @override
   void initState() {
     super.initState();
@@ -28,15 +31,18 @@ class _AdminViewDelPostsState extends State<AdminViewDelPosts> {
     setState(() {
       isLoading = true;
     });
-    QuerySnapshot snapshot = await postsRef
-        .document(widget.profileId)
-        .collection('adminPosts')
-        .orderBy('timestamp', descending: true)
-        .getDocuments();
+
+    QuerySnapshot snapshot =
+        await timelineRef.orderBy('timestamp', descending: true).get();
+    // QuerySnapshot snapshot = await postsRef
+    //     .doc(widget.profileId)
+    //     .collection('adminPosts')
+    //     .orderBy('timestamp', descending: true)
+    //     .get();
     setState(() {
       isLoading = false;
-      postCount = snapshot.documents.length;
-      posts = snapshot.documents.map((doc) => Post.fromDocument(doc)).toList();
+      postCount = snapshot.docs.length;
+      posts = snapshot.docs.map((doc) => Post.fromDocument(doc)).toList();
     });
   }
 
@@ -111,14 +117,24 @@ class _AdminViewDelPostsState extends State<AdminViewDelPosts> {
     // super.build(context);
     return Scaffold(
         appBar: AppBar(title: Text("View/Del Posts")),
-        body: ListView(
-          children: <Widget>[
-            buildTogglePostOrientation(),
-            Divider(
-              height: 0.0,
-            ),
-            buildProfilePosts(),
-          ],
+        body: SmartRefresher(
+          child: ListView(
+            children: <Widget>[
+              buildTogglePostOrientation(),
+              Divider(
+                height: 0.0,
+              ),
+              buildProfilePosts(),
+            ],
+          ),
+          controller: _refreshController,
+          header: WaterDropMaterialHeader(
+            distance: 40.0,
+          ),
+          onRefresh: () {
+            getProfilePost();
+            _refreshController.refreshCompleted();
+          },
         ));
   }
 }

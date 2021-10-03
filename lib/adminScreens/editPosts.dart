@@ -4,23 +4,32 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image/image.dart' as Im;
 import 'package:image_picker/image_picker.dart';
-import 'package:kannapy/models/users.dart';
 import 'package:kannapy/tools/progress.dart';
+import 'package:kannapy/tools/uiFunctions.dart';
 import 'package:kannapy/userScreens/home.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:image/image.dart' as Im;
-import 'package:uuid/uuid.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class EditPosts extends StatefulWidget {
-  final String description, postTitle, mediaUrl, postId, currentUserId;
+  final String description,
+      postTitle,
+      mediaUrl,
+      postId,
+      currentUserId,
+      subHeading,
+      videoLink;
 
   EditPosts(
       {this.description,
       this.mediaUrl,
       this.postTitle,
       this.postId,
-      this.currentUserId});
+      this.currentUserId,
+      this.subHeading,
+      this.videoLink});
   @override
   _EditPostsState createState() => _EditPostsState();
 }
@@ -30,10 +39,12 @@ class _EditPostsState extends State<EditPosts> {
   File file;
   bool isUploading = false;
   String postId;
-  String postTitle, postDescription;
+  String postTitle, postDescription, postSubheading, videoLink;
 
-  TextEditingController postTitleController = TextEditingController();
-  TextEditingController postDescriptionController = TextEditingController();
+  TextEditingController _postTitleController = TextEditingController();
+  TextEditingController _postDescriptionController = TextEditingController();
+  TextEditingController _postSubHeadController = TextEditingController();
+  TextEditingController _videoLinkController = TextEditingController();
 
   ScrollController _scrollController = ScrollController();
   @override
@@ -41,8 +52,13 @@ class _EditPostsState extends State<EditPosts> {
     postId = widget.postId;
     postTitle = widget.postTitle;
     postDescription = widget.description;
-    postDescriptionController.text = widget.description;
-    postTitleController.text = widget.postTitle;
+    postSubheading = widget.subHeading;
+    videoLink = widget.videoLink;
+    _postDescriptionController.text = widget.description;
+    _postTitleController.text = widget.postTitle;
+    _postSubHeadController.text = widget.subHeading;
+    _videoLinkController.text = widget.videoLink;
+
     super.initState();
   }
 
@@ -50,20 +66,20 @@ class _EditPostsState extends State<EditPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upload Posts"),
+        title: Text("Update Posts"),
         actions: [
           Padding(
             padding: EdgeInsets.all(10.0),
             child: RaisedButton.icon(
-              onPressed: () => selectImage(context),
+              onPressed: () => buildMediaDialog(context),
               icon: Icon(
-                Icons.add_a_photo,
+                Icons.add,
                 size: 20.0,
               ),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               label: Text(
-                'Add Images',
+                'Update Media',
                 style: TextStyle(fontSize: 10.0),
               ),
             ),
@@ -117,7 +133,7 @@ class _EditPostsState extends State<EditPosts> {
                       onSaved: (val) => postTitle = val,
                       validator: (val) =>
                           val.trim().length < 3 ? 'Post Title Too Short' : null,
-                      controller: postTitleController,
+                      controller: _postTitleController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             // borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -133,11 +149,31 @@ class _EditPostsState extends State<EditPosts> {
                   Padding(
                     padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                     child: TextFormField(
+                      onSaved: (val) => postSubheading = val,
+                      validator: (val) => val.trim().length < 3
+                          ? 'Post Sub heading Too Short'
+                          : null,
+                      controller: _postSubHeadController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            // borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            ),
+                        labelText: "Post Sub Heading",
+                        hintText: "Min length 3",
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                    child: TextFormField(
                       onSaved: (val) => postDescription = val,
                       validator: (val) => val.trim().length < 1
                           ? 'Please add Product description'
                           : null,
-                      controller: postDescriptionController,
+                      controller: _postDescriptionController,
                       maxLines: 7,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -149,15 +185,29 @@ class _EditPostsState extends State<EditPosts> {
                   SizedBox(
                     height: 25.0,
                   ),
-                  RaisedButton(
-                    onPressed: isUploading ? null : () => handleSubmit(),
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, bottom: 10.0, top: 10.0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    child: Text(
-                      'Upload Post',
-                      style: TextStyle(fontSize: 20.0),
+                  GestureDetector(
+                    onTap: isUploading ? null : () => handleSubmit(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: neumorphicTile(
+                        padding: 8,
+                        anyWidget: Container(
+                          width: 150,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FaIcon(FontAwesomeIcons.upload),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Update Post',
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   )
                 ],
@@ -172,11 +222,11 @@ class _EditPostsState extends State<EditPosts> {
       context: parentContext,
       builder: (context) {
         return SimpleDialog(
-          title: Text("Create Post"),
+          title: Text("Upload Image"),
           children: <Widget>[
             SimpleDialogOption(
                 child: Text("Select Image"), onPressed: handleImageFromGallery),
-            SimpleDialogOption(child: Text("Select Video"), onPressed: () {}),
+            // SimpleDialogOption(child: Text("Select Video"), onPressed: () {}),
             SimpleDialogOption(
               child: Text("Cancel"),
               onPressed: () => Navigator.pop(context),
@@ -210,32 +260,46 @@ class _EditPostsState extends State<EditPosts> {
   }
 
   Future<String> uploadImage(imageFile) async {
-    StorageUploadTask uploadTask =
+    UploadTask uploadTask =
         storageRef.child("post_$postId.jpg").putFile(imageFile);
-    StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
-    String downloadUrl = await storageSnap.ref.getDownloadURL();
+    // TaskSnapshot storageSnap = await uploadTask.onComplete;
+    // String downloadUrl = await storageSnap.ref.getDownloadURL();
+    // return downloadUrl;
+    String downloadUrl;
+    //TaskSnapshot storageSnap = await
+    uploadTask.then((res) async {
+      downloadUrl = await res.ref.getDownloadURL();
+    });
     return downloadUrl;
   }
 
   createPostInFirestore(
-      {String postMediaUrl, String postTitle, String description}) {
+      {String postMediaUrl,
+      String postTitle,
+      String description,
+      String subHeading,
+      String videoLink}) {
     postsRef
-        .document(widget.currentUserId)
+        .doc(widget.currentUserId)
         .collection("adminPosts")
-        .document(postId)
-        .updateData({
+        .doc(postId)
+        .update({
       "postId": postId,
       "postTitle": postTitle,
       "postMediaUrl": postMediaUrl,
       "description": description,
+      "subHeading": subHeading,
       "timestamp": timestamp,
+      "videoLink": videoLink,
     });
-    timelineRef.document(postId).setData({
+    timelineRef.doc(postId).update({
       "postId": postId,
       "postTitle": postTitle,
       "postMediaUrl": postMediaUrl,
       "description": description,
       "timestamp": timestamp,
+      "subHeading": subHeading,
+      "videoLink": videoLink,
     });
   }
 
@@ -254,16 +318,19 @@ class _EditPostsState extends State<EditPosts> {
 
       createPostInFirestore(
         postMediaUrl: postMediaUrl,
-        postTitle: postTitleController.text,
-        description: postDescriptionController.text,
+        postTitle: _postTitleController.text,
+        description: _postDescriptionController.text,
+        subHeading: _postSubHeadController.text,
+        videoLink: videoLink,
       );
       setState(() {
         file = null;
         isUploading = false;
       });
 
-      postTitleController.clear();
-      postDescriptionController.clear();
+      _postTitleController.clear();
+      _postDescriptionController.clear();
+      _postSubHeadController.clear();
       Navigator.pop(context);
 
       BotToast.showText(
@@ -272,5 +339,135 @@ class _EditPostsState extends State<EditPosts> {
             seconds: 2,
           ));
     }
+  }
+
+  buildMediaDialog(BuildContext parentContext) {
+    return showDialog(
+        context: parentContext,
+        builder: (context) {
+          return SimpleDialog(
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context);
+                  selectImage(parentContext);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: neumorphicTile(
+                    padding: 12,
+                    anyWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(FontAwesomeIcons.image),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Upload Image',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context);
+                  buildUrlAddDialog(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: neumorphicTile(
+                    padding: 12,
+                    anyWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(FontAwesomeIcons.youtube),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Upload Video Url',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () => Navigator.pop(context),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: neumorphicTile(
+                      padding: 12,
+                      anyWidget: Row(
+                        children: [
+                          Icon(Icons.exit_to_app),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Cancel'),
+                        ],
+                      )),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  buildUrlAddDialog(BuildContext parentContext) {
+    final _textFormKey = GlobalKey<FormState>();
+    return showDialog(
+        context: parentContext,
+        builder: (context) {
+          return SimpleDialog(
+            elevation: 6,
+            title: Center(child: Text("Enter Video URL")),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
+            titlePadding: EdgeInsets.all(12.0),
+            contentPadding: EdgeInsets.all(12.0),
+            children: [
+              Form(
+                key: _textFormKey,
+                child: TextFormField(
+                  onSaved: (val) => _videoLinkController.text = val,
+                  validator: (val) =>
+                      val.trim().length <= 4 ? "Enter Valid URL!" : null,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Enter YouTube URL",
+                    hintText: "URL Must be Valid",
+                  ),
+                  controller: _videoLinkController,
+                ),
+              ),
+              RaisedButton.icon(
+                elevation: 6,
+                padding: EdgeInsets.all(6),
+                onPressed: () {
+                  final _form = _textFormKey.currentState;
+                  if (_form.validate()) {
+                    setState(() {
+                      videoLink = YoutubePlayer.convertUrlToId(
+                          _videoLinkController.text);
+                    });
+                    print(videoLink);
+                    BotToast.showText(
+                        text: "Url Added",
+                        duration: Duration(microseconds: 300),
+                        onClose: () {
+                          Navigator.pop(context);
+                        });
+                  }
+                },
+                icon: FaIcon(FontAwesomeIcons.youtubeSquare),
+                label: Text("Video URL"),
+              ),
+            ],
+          );
+        });
   }
 }

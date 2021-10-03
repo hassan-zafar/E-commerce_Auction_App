@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: io.grpc:grpc-context:1.28.0" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-context/1.28.0/36d7838a68e29ad12a3cf67a4e04b621c617ce09/grpc-context-1.28.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

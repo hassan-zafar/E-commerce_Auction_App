@@ -13,11 +13,7 @@ class PostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: postsRef
-            .document(userId)
-            .collection('adminPosts')
-            .document(postId)
-            .get(),
+        future: postsRef.doc(userId).collection('adminPosts').doc(postId).get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return bouncingGridProgress();
@@ -26,7 +22,7 @@ class PostScreen extends StatelessWidget {
           return Center(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(post.userName),
+                title: Text(post.postTitle),
               ),
               body: ListView(
                 children: <Widget>[
