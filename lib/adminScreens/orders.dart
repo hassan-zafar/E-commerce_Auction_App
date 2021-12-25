@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kannapy/models/card.dart';
-import 'file:///C:/kannapy/lib/adminScreens/orderDetails.dart';
 import 'package:kannapy/tools/progress.dart';
 import 'package:kannapy/tools/uiFunctions.dart';
 import 'package:kannapy/userScreens/home.dart';
